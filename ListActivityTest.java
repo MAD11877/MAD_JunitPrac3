@@ -3,6 +3,8 @@ package sg.edu.np.mad.madpractical;
 import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.test.espresso.UiController;
+import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.RootMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -10,6 +12,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import junit.framework.TestCase;
 
+import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -26,6 +29,26 @@ import static org.hamcrest.Matchers.not;
 
 public class ListActivityTest extends TestCase {
 
+    public static ViewAction clickChildViewWithId(
+            final int id) {
+        return new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return null;
+            }
+
+            @Override
+            public String getDescription() {
+                return "Click on a child view with specified id.";
+            }
+
+            @Override
+            public void perform(UiController uiController, View view) {
+                View v = view.findViewById(id);
+                v.performClick();
+            }
+        };
+    }
     @Rule
     public ActivityScenarioRule<ListActivity> listActivityActivityScenarioRule =
             new ActivityScenarioRule<>(ListActivity.class);
@@ -37,14 +60,14 @@ public class ListActivityTest extends TestCase {
 
     @Test
     public void testRecyclerListContent(){
-        for(int i=0; i<22; i++) {
+        for(int i=0; i<20; i++) {
             onView(withId(R.id.rv)).perform(RecyclerViewActions.actionOnItemAtPosition(i, click()));
         }
     }
 
     @Test
     public void testRecyclerChild() {
-        onView(withId(R.id.rv)).perform(RecyclerViewActions.actionOnItemAtPosition(10, ChildViewAction.clickChildViewWithId(R.id.img_profile)));
+        onView(withId(R.id.rv)).perform(RecyclerViewActions.actionOnItemAtPosition(10, clickChildViewWithId(R.id.img_profile)));
         onView(withText("VIEW")).inRoot(isDialog()).check(matches(isDisplayed())).perform(click());
         onView(withId(R.id.btnFollow)).perform(click()).check(matches(isDisplayed()));
         onView(withId(R.id.btnFollow)).perform(click()).check(matches(isDisplayed()));
