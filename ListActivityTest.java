@@ -70,7 +70,6 @@ public class ListActivityTest extends TestCase {
         onView(withId(R.id.rv)).perform(RecyclerViewActions.actionOnItemAtPosition(10, clickChildViewWithId(R.id.img_profile)));
         onView(withText("VIEW")).inRoot(isDialog()).check(matches(isDisplayed())).perform(click());
         onView(withId(R.id.btnFollow)).perform(click()).check(matches(isDisplayed()));
-        onView(withId(R.id.btnFollow)).perform(click()).check(matches(isDisplayed()));
     }
 
     public void tearDown() throws Exception {
