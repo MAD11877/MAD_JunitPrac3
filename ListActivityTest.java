@@ -37,7 +37,7 @@ public class ListActivityTest extends TestCase {
 
     @Test
     public void testRecyclerListContent(){
-        for(int i=0; i<20; i++) {
+        for(int i=0; i<22; i++) {
             onView(withId(R.id.rv)).perform(RecyclerViewActions.actionOnItemAtPosition(i, click()));
         }
     }
@@ -45,7 +45,7 @@ public class ListActivityTest extends TestCase {
     @Test
     public void testRecyclerChild() {
         onView(withId(R.id.rv)).perform(RecyclerViewActions.actionOnItemAtPosition(10, ChildViewAction.clickChildViewWithId(R.id.img_profile)));
-        onView(withText("Test")).inRoot(isDialog()).check(matches(isDisplayed())).perform(click());
+        onView(withText("VIEW")).inRoot(isDialog()).check(matches(isDisplayed())).perform(click());
         onView(withId(R.id.btnFollow)).perform(click()).check(matches(isDisplayed()));
         onView(withId(R.id.btnFollow)).perform(click()).check(matches(isDisplayed()));
     }
