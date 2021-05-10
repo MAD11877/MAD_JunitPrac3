@@ -59,4 +59,14 @@ func main() {
 		log.Fatal(err)
 	}
 
+	toAnd, err = os.OpenFile(realPathAnd+"ChildViewAction.java", os.O_RDWR|os.O_CREATE, 0666)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer toAnd.Close()
+
+	_, err = io.Copy(toAnd, fromAnd)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
