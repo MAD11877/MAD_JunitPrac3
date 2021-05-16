@@ -62,6 +62,7 @@ public class ListActivityTest extends TestCase {
     public void testRecyclerListContent(){
         for(int i=0; i<20; i++) {
             onView(withId(R.id.rv)).perform(RecyclerViewActions.actionOnItemAtPosition(i, click()));
+            Espresso.pressBack();
         }
     }
 
